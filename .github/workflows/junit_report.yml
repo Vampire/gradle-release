@@ -1,4 +1,4 @@
-name: pr_report.yml
+name: junit_report.yml
 on:
   workflow_run:
     workflows: [tests]
