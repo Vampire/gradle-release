@@ -1,5 +1,40 @@
 # Changelog
 
+## 3.2.0
+##### Released: 18. June 2026
+
+### New Features
+
+* COMMON: `versionPropertyFileEncoding` can now be set to control the charset used when reading/writing the version property file. Defaults to `ISO-8859-1` (the Java Properties file standard), preventing encoding corruption on Java 18+ where the JVM default switched to UTF-8. (thanks Björn Kautler)
+
+### Bugfixes
+
+* COMMON: Fixed `ConcurrentModificationException` in `checkSnapshotDependencies` when running alongside frameworks like Quarkus 3.25.1+ that mutate configurations dynamically during evaluation. (Fixes #406, #409 thanks Michael Häusler)
+* COMMON: Fixed Gradle 9 compatibility — the release task completion listener is now registered via `BuildServiceRegistry` instead of as an arbitrary provider, which is required when the Configuration Cache is enabled. (thanks Daniel Shuy)
+* GIT: Fixed branch detection when `column.branch=column` is set in global git config — `git branch` now uses `--no-column`. (thanks Markus Reil)
+
+### Maintenance
+
+* Expanded CI matrix to test Gradle 6–9 × Java 8, 11, 17, and 21. (#410)
+* Build script modernization: replaced deprecated `testCompile` with `testImplementation`, explicitly set Java 8 baseline, bumped Guava to 32.0.1-jre to address CVEs. (#409)
+
+## 3.1.0
+##### Released: 23. December 2024
+
+### New Features
+
+* COMMON: Replaced deprecated `taskGraph.afterTask` with an operation completion listener for Gradle 6.1+ compatibility. (#389, thanks Björn Kautler)
+
+### Bugfixes
+
+* GIT: Fixed unnecessary space in pre-tag commit message when no pre-commit text is configured. (#384, thanks Björn Kautler)
+* GIT: Fixed test failures when global `.gitconfig` contains custom pretty format settings. (#375, thanks Elric)
+* COMMON: Removed deprecated property usage for better forward compatibility. (#390, thanks Ruslan Ibragimov)
+
+### Maintenance
+
+* Improved cross-platform test safety. (#386, thanks Björn Kautler)
+
 ## 3.0.0
 ##### Released: 13. May 2022
 * Upgraded to gradle 6
